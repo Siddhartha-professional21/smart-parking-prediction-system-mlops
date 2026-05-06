@@ -1,4 +1,4 @@
-name: CI
+name: CI Pipeline
 
 on:
   push:
@@ -7,11 +7,11 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  test-and-build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -24,8 +24,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run basic import check
-        run: python -c "from app.main import app; print('App imported successfully')"
+      - name: Check FastAPI app import
+        run: |
+          python -c "from app.main import app; print('FastAPI app imported successfully')"
 
-      - name: Docker build
-        run: docker build -t smart-parking-mlops .
+      - name: Build Docker image
+        run: |
+          docker build -t smart-parking-mlops .
