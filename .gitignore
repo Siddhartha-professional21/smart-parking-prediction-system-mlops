@@ -1,0 +1,7 @@
+
+# Ignore large model files
+*.pkl
+*.joblib
+__pycache__/
+.venv/
+.env
